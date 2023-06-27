@@ -20,18 +20,19 @@ const options = {
         console.log(selectedDates[0]);
 
         if (selectedDates[0] <= new Date) {
-            refs.startBtnEl.setAttribute('disabled', 'disabled');
+            makeStartBtnDisabled();
             return Notiflix.Notify.failure('Please choose a date in the future');
-            }
-            refs.startBtnEl.removeAttribute('disabled');
+        };
+        makeStartBtnEnabled();
     },
 };
 
 const fp = flatpickr("#datetime-picker", options);
 
-refs.startBtnEl.setAttribute('disabled', 'disabled');
+makeStartBtnDisabled();
 
 refs.startBtnEl.addEventListener('click', () => {
+    makeStartBtnDisabled();
     let timerId = setInterval(() => {
         const finishTime = fp.selectedDates[0].getTime();
         const startTime = Date.now();
@@ -45,6 +46,14 @@ refs.startBtnEl.addEventListener('click', () => {
             showTimeTicker(timer);
     }, 1000);
 });
+
+function makeStartBtnDisabled() {
+    refs.startBtnEl.setAttribute('disabled', 'disabled');
+}
+
+function makeStartBtnEnabled() {
+    refs.startBtnEl.removeAttribute('disabled');
+}
 
 // ф-ція для форматування у хх-хх-хх-хх
 function addLeadingZero(value) {
