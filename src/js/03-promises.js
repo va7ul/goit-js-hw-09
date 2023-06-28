@@ -27,6 +27,8 @@ function onSubmit(event) {
 
     firstDelay += nextStep;
   };
+
+  refs.form.reset();
 };
 
 function createPromise(position, delay) {
